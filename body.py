@@ -82,20 +82,3 @@ class Body:
             body.pos += body.vel * dt
         return body
     #"""
-
-    """"
-    #Velocity verlet
-    @staticmethod
-    def move(body, a, dt):
-        try:
-            vi = Body.getVel(body)
-            pa = Body.getPos(body) + vi * dt + a * dt**2
-            va = vi * dt
-            for i in range(len(body)):
-                body[i].pos = pa[i]
-                body[i].vel = va[i]
-        except TypeError:
-            body.pos += body.vel * dt
-            body.vel += a * dt
-        return body
-    """"
