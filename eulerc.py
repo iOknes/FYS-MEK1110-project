@@ -28,3 +28,5 @@ for i in r:
     track.write(f"{len(i)}\n\n")
     for j in i:
         track.write(f"Ar {j[0]} {j[1]} {j[2]}\n")
+
+
