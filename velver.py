@@ -7,12 +7,12 @@ p = LJP(1,1)
 dt = 1e-2
 T = 10
 N = int(T/dt)
-pN = 2
+pN = 3
 
 r = np.empty([N,pN,3], dtype="float64")
 v = np.zeros_like(r)
 
-r[0] = [(0,0,0), (1.5,0,0)]
+r[0] = [(0,0,0), (1.5,0,0), (-1.5,0,0)]
 #r[0] = [(0,0,0), (1.5,0,0), (-0.25,-0.25,0), (0,0,1)]
 
 track = open("track_r.xyz", "w")
@@ -51,7 +51,7 @@ ep = np.sum(np.sum(p(np.linalg.norm(d, axis=3)), axis=2), axis=1)
 #Generate time array and plot energies
 t = np.linspace(0, T, N)
 plt.plot(t, ek, label="Kinetic energy")
-plt.plot(t, ep, label="Potential energy")
-plt.plot(t, ep + ek, label="Total energy")
+plt.plot(t, ep/2, label="Potential energy")
+plt.plot(t, ep/2 + ek, label="Total energy")
 plt.legend()
 plt.show()
