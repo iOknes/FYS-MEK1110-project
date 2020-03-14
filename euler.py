@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from potential import LJP
 
 p = LJP(1,1)
+m = 1
 
 dt = 1e-2
 T = 5
@@ -31,7 +32,7 @@ for i in r:
 
 #Calculate energies for all particles
 #Kinetic energy
-ek = np.sum(np.linalg.norm(v, axis=2)**2 / 2, axis=1)
+ek = np.sum(pN * m * np.linalg.norm(v, axis=2)**2 / 2, axis=1)
 #Potential energy
 d = np.empty((N, pN, pN-1, 3), dtype="float64")
 print(np.shape(d))
@@ -45,7 +46,7 @@ ep = np.sum(np.sum(p(np.linalg.norm(d, axis=3)), axis=2), axis=1)
 #Generate time array and plot energies
 t = np.linspace(0, T, N)
 plt.plot(t, ek, label="Kinetic energy")
-plt.plot(t, ep/2, label="Potential energy")
-plt.plot(t, ep/2 + ek, label="Total energy")
+plt.plot(t, ep, label="Potential energy")
+plt.plot(t, ep + ek, label="Total energy")
 plt.legend()
 plt.show()
