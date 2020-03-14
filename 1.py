@@ -4,7 +4,7 @@ from potential import LJP
 
 u = LJP(1,1)
 
-x = np.linspace(0.9,3,1001)
+x = np.linspace(0.9,3.1,1001)
 y = u(x)
 
 plt.plot(x, y, label="LJP: epsilon = 1, sigma = 1")
