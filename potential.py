@@ -33,6 +33,7 @@ class LJP:
         r = r1 - r2
         rn = norm(r)
         if rn < 3:
-            return 24 * self.epsilon / m1 * r / rn**2 * (2 * ((self.sigma / rn)**12 - (self.sigma / rn)**6) - ((self.sigma / rn)**12 - (self.sigma / rn)**6))
+            return 24 * self.epsilon / m1 * (2 * (self.sigma / rn)**12 - (self.sigma / rn)**6) * r / rn**2
+            #return 24 * self.epsilon / m1 * r / rn**2 * ((2 * (self.sigma / rn)**12 - (self.sigma / rn)**6) - ((self.sigma / rn)**12 - (self.sigma / rn)**6))
         else:
             return 0
