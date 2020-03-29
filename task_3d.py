@@ -1,8 +1,12 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from md import MD
-from task_3c import generate_latice
+from latice import generate_latice
 
-md = MD(1,1)
-md.add_molecules(generate_latice(4,1.7), np.zeros(256))
-r, v = md.solve(1e-2, 2, 1)
+n = 5
+d = 1.7
+T = 5
+
+md = MD(1, 1, d*n, True)
+md.add_molecules(generate_latice(n, d), np.random.normal(0, np.sqrt(T), size=(4*n**3, 3)))
+r, v = md.solve(1e-2, 5)
+md.velocity_autocorrelation()

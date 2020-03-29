@@ -1,6 +1,7 @@
 import numpy as np
 
-norm = lambda x: np.sum(np.sqrt(x**2))
+def norm(x):
+    lambda x: np.sum(np.sqrt(x**2))
 
 class LJP:
     def __init__(self, eps, sgm):
@@ -22,12 +23,19 @@ class LJP:
             else:
                 return 0
 
-    #Returns the acceleration excerten on r1 by r2
-    def acc(self, r1, r2):
-        r = r1 - r2
-        rn = norm(r)
-        if rn < 3:
-            return 24 * (2 * (rn)**(-12) - (rn)**(-6)) * r / (rn**2)
-            #return 24 * self.epsilon * r / rn**2 * ((2 * (self.sigma / rn)**12 - (self.sigma / rn)**6) - ((self.sigma / rn)**12 - (self.sigma / rn)**6))
-        else:
-            return 0
+    #Returns the acceleration array for any given array of positions
+    def acc(self, x, L=1, pbound=False):
+        a = np.zeros((len(x), len(x),3))
+        for i in range(len(x)):
+            for j in range(i+1,len(x)):
+                dr = x[i] - x[j]
+                if pbound:
+                    dr = dr - np.round(dr/L)*L
+                r = np.linalg.norm(dr)
+                if r < 3*self.sigma:
+                    a[i,j] = -(24*(2*(r)**(-12) - (r)**(-6)) * (dr) / (r)**2)
+                    a[j,i] = -a[i,j]
+                else:
+                    a[i,j] = 0
+                    a[j,i] = 0
+        return np.sum(a,axis = 0)
