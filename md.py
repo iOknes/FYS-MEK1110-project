@@ -111,10 +111,14 @@ class MD:
         except NameError:
             print('System has probably not been solved. Try running the solve method!')
             exit()
-        self.a = np.average(vt / np.sum(v0 * v0, axis=1), axis=1)
+        self.a = np.sum(vt / np.sum(v0 * v0, axis=1), axis=1) / self.pN
         if self.plot:
             plt.plot(self.t, self.a, label='Velocity autocorrelation')
+            plt.xlabel("Velocity autocorrelation")
+            plt.ylabel("Time")
             plt.show()
+        D = np.trapz(self.a, self.t)/3
+        print(f"Diffuion constant: {D}")
 
 def md_example():
     md = MD(1, 1)
