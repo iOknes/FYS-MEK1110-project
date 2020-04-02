@@ -4,21 +4,22 @@ def norm(x):
     lambda x: np.sum(np.sqrt(x**2))
 
 class LJP:
-    def __init__(self, eps, sgm):
+    def __init__(self, eps, sgm, rc):
         self.epsilon = eps
         self.sigma = sgm
+        self.rc = rc
     """
     Return the potential between two atoms at a distance r sigma
     Takes either int, float or array as argument. Otherwise raises TypeError
     """
     def __call__(self, r):
         if type(r) is np.ndarray:
-            r_ = r > 3
+            r_ = r > self.rc
             r = 4 * (((r)**(-12) - (r)**(-6)) - ((3)**(-12) - (3)**(-6)))
             r[r_] = 0
             return r
         else:
-            if r < 3:
+            if r < self.rc:
                 return 4 * (((r)**(-12) - (r)**(-6)) - ((3)**(-12) - (3)**(-6)))
             else:
                 return 0
@@ -32,7 +33,7 @@ class LJP:
                 if pbound:
                     dr = dr - np.round(dr/L)*L
                 r = np.linalg.norm(dr)
-                if r < 3*self.sigma:
+                if r < self.rc:
                     a[i,j] = -(24*(2*(r)**(-12) - (r)**(-6)) * (dr) / (r)**2)
                     a[j,i] = -a[i,j]
                 else:
