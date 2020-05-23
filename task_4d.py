@@ -10,16 +10,14 @@ T = 94.4
 
 md = MD(1, 1, d*n, True)
 md.add_molecules(generate_latice(n, d), T/119.7)
-r, v = md.solve(1e-2, 5, True)
+r, v = md.solve(1e-2, 5, plot=True)
+rdf, b_c = md.rdf(128)
 
-"""
-rdf = md.rdf(4*n**3)
-t = np.linspace(0, T, int(5/1e-2))
-
-plt.plot(t, rdf, label="Radial diffusion")
+plt.plot(b_c, rdf, label="Radial diffusion")
 plt.legend()
-plt.xlabel("Time")
+plt.axhline(y=1, color="black")
+plt.xlabel("Distance")
 plt.ylabel("Radial distribution")
 plt.savefig("rdf.png")
+plt.axes([0,4,0,3])
 plt.show()
-"""
